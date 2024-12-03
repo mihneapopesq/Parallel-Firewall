@@ -5,6 +5,8 @@
 
 #include <sys/types.h>
 #include <string.h>
+#include <pthread.h>
+#include <semaphore.h>
 
 typedef struct so_ring_buffer_t {
 	char *data;
@@ -14,8 +16,12 @@ typedef struct so_ring_buffer_t {
 
 	size_t len;
 	size_t cap;
-
 	/* TODO: Add syncronization primitives */
+	pthread_mutex_t mutex;
+	pthread_cond_t not_empty;
+	pthread_cond_t not_full;
+	int stop;
+
 } so_ring_buffer_t;
 
 int     ring_buffer_init(so_ring_buffer_t *rb, size_t cap);

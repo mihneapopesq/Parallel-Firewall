@@ -4,12 +4,19 @@
 #define __SO_CONSUMER_H__
 
 #include "ring_buffer.h"
-#include "packet.h"
+#include "packet.h"	
+#include <stdio.h>
 
 typedef struct so_consumer_ctx_t {
 	struct so_ring_buffer_t *producer_rb;
 
     /* TODO: add synchronization primitives for timestamp ordering */
+	pthread_mutex_t log_mutex;
+	const char *log_file;
+    pthread_cond_t seq_cond;
+    unsigned long next_seq_to_log;
+	unsigned long my_seq;
+
 } so_consumer_ctx_t;
 
 int create_consumers(pthread_t *tids,
