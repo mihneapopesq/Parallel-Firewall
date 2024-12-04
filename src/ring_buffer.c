@@ -38,7 +38,7 @@ ssize_t ring_buffer_enqueue(so_ring_buffer_t *ring, void *data, size_t size)
 		return -1;
 	}
 
-	if(size){
+	if (size) {
 		copy_data_ring(ring, data, size, 1);
 		ring->write_pos = (ring->write_pos + size) % ring->cap;
 		ring->len += size;
@@ -120,12 +120,10 @@ static void copy_data_ring(so_ring_buffer_t *ring, void *data, size_t size, int 
 		rb_data = space;
 	else
 		rb_data = size;
-	
+
 
 	if (is_write)
 		memcpy(ring->data + ring->write_pos, data, rb_data);
 	else
 		memcpy(data, ring->data + ring->read_pos, rb_data);
 }
-
-

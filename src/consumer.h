@@ -3,26 +3,25 @@
 #ifndef __SO_CONSUMER_H__
 #define __SO_CONSUMER_H__
 
-#include "ring_buffer.h"
-#include "packet.h"
 #include <stdio.h>
 #include <semaphore.h>
+#include "ring_buffer.h"
+#include "packet.h"
 
 typedef struct so_consumer_ctx_t {
-	struct so_ring_buffer_t *producer_rb;
+    struct so_ring_buffer_t *producer_rb;
 
     /* TODO: add synchronization primitives for timestamp ordering */
-	sem_t log_semaphore;              
-	const char *log_file;
-    pthread_cond_t seq_cond;          
+    sem_t log_semaphore;
+    const char *log_file;
+    pthread_cond_t seq_cond;
     unsigned long next_seq_to_log;
-	unsigned long my_seq;    
-
+    unsigned long my_seq;
 } so_consumer_ctx_t;
 
 int create_consumers(pthread_t *tids,
-					int num_consumers,
-					so_ring_buffer_t *rb,
-					const char *out_filename);
+                    int num_consumers,
+                    so_ring_buffer_t *rb,
+                    const char *out_filename);
 
 #endif /* __SO_CONSUMER_H__ */

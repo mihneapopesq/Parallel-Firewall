@@ -70,9 +70,8 @@ int main(int argc, char **argv)
 
 	/* TODO: wait for child threads to finish execution*/
 
-	for(int i = 0; i < num_consumers; i++) {
+	for (int i = 0; i < num_consumers; i++)
 		pthread_join(thread_ids[i], NULL);
-	}
 
 	(void) threads;
 
